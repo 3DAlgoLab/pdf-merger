@@ -1,0 +1,20 @@
+[project]
+name = "pdf-merger"
+version = "0.1.0"
+description = "Simple PDF merger CLI tool"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.3.1",
+    "pypdf>=6.7.3",
+]
+
+[project.scripts]
+pdf_merge = "pdf_merger.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = []
