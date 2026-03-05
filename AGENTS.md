@@ -6,9 +6,10 @@ Simple PDF merger CLI tool written in Python 3.13 using the uv framework. Merges
 
 ## Project Configuration
 
-- **Python Version**: 3.13
+- **Python Version**: >=3.10 (tested on 3.13)
 - **Package Manager**: uv
 - **Project Type**: CLI application
+- **Dependencies**: click>=8.3.1, pypdf>=6.7.3
 
 ## Commands
 
@@ -31,12 +32,12 @@ uv add <package>           # Install and save to pyproject.toml
 uv run pytest              # Run all tests
 uv run pytest -x           # Stop on first failure
 uv run pytest -k <pattern> # Run tests matching pattern
-uv run pytest tests/test_file.py::test_function_name  # Single test
+uv run pytest test/test_file.py::test_function_name  # Single test
 ```
 
 ### Linting and Formatting
 
-When configured, use ruff:
+Configure ruff and mypy in `pyproject.toml`:
 
 ```bash
 uv run ruff check .   # Lint
@@ -130,7 +131,7 @@ def merge_pdfs(input_dir: Path, output_file: Path) -> None:
 
 ### Docstrings
 
-Use Google-style or NumPy-style. Include brief description, Args, Returns, Raises.
+Use Google-style or NumPy-style. Include brief description, Args, Returns, Raises. Match existing style in codebase.
 
 ```python
 def merge_pdfs(input_dir: Path, output_file: Path) -> int:
@@ -150,8 +151,8 @@ def merge_pdfs(input_dir: Path, output_file: Path) -> int:
 
 ### Testing
 
-- Place tests in `tests/` directory
-- Name test files `test_<module>.py`
+- Place tests in `test/` directory (plural module, singular directory)
+- Name test files `test_*.py` or `*_test.py`
 - Name test functions `test_<description>`
 
 ```python

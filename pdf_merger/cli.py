@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 @click.argument("directory", type=click.Path(exists=True, path_type=Path))
 def main(directory: Path) -> None:
     """Merge all PDF files in DIRECTORY into a single PDF named after the directory."""
+    directory = directory.resolve()
     logger.info(f"Merging PDFs from: {directory}")
 
     output_file = directory.with_suffix(".pdf")
