@@ -9,5 +9,5 @@ It works like this.
 # current folder(ex 'abc')  has following 1.pdf, 2.pdf, 3.pdf. 
 # after running following command
 pdf_merge .
-# then generte abc.pdf merging 1.pdf 2.pdf & 3.pdf.  
+# then generate abc.pdf merging 1.pdf 2.pdf & 3.pdf.  
 ```
