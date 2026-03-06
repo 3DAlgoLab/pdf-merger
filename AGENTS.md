@@ -69,7 +69,7 @@ import os
 from pathlib import Path
 
 import click
-from PyPDF2 import PdfMerger
+from pypdf import PdfWriter
 
 from pdf_merger import merge_pdfs
 ```

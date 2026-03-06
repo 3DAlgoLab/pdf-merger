@@ -9,37 +9,31 @@ A simple CLI tool to merge all PDF files in a directory into a single PDF.
 - Python 3.10 or higher
 - uv package manager
 
-### Linux
+### Recommended: uv tool install (Linux/macOS/Windows)
+
+Using `uv tool install` is the recommended way to install CLI tools with uv:
 
 ```bash
 # Install uv (if not installed)
+# Linux/macOS:
 curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Clone or download this repository
-cd pdf-merger
-
-# Install dependencies
-uv pip install -e .
-```
-
-### macOS
-
-```bash
-# Install uv (if not installed)
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Clone or download this repository
-cd pdf-merger
-
-# Install dependencies
-uv pip install -e .
-```
-
-### Windows
-
-```powershell
-# Install uv (if not installed)
+# Windows (PowerShell):
 irm https://astral.sh/uv/install.ps1 | iex
+
+# Clone or download this repository
+cd pdf-merger
+
+# Install as a tool
+uv tool install .
+```
+
+This makes `pdf_merge` available globally in your PATH.
+
+### Alternative: uv pip install
+
+```bash
+# Install uv (if not installed)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Clone or download this repository
 cd pdf-merger
@@ -85,5 +79,9 @@ pdf_merge --help
 ## Uninstall
 
 ```bash
+# If installed with uv tool install (recommended)
+uv tool uninstall pdf-merger
+
+# If installed with uv pip install
 uv pip uninstall pdf-merger
 ```
