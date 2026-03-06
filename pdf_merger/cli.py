@@ -1,25 +1,48 @@
 import logging
 import sys
 from pathlib import Path
+from typing import Optional, cast
 
 import click
 
-from pdf_merger import PdfMergeError, merge_pdfs
+from pdf_merger import PdfMergeError, Orientation, merge_pdfs
 
 logger = logging.getLogger(__name__)
 
 
 @click.command()
 @click.argument("directory", type=click.Path(exists=True, path_type=Path))
-def main(directory: Path) -> None:
-    """Merge all PDF files in DIRECTORY into a single PDF named after the directory."""
+@click.option(
+    "--size",
+    "-s",
+    "normalize_size",
+    default=None,
+    help="Normalize page size to specified size. Options: A4, A3, LETTER, LEGAL, or WxH (e.g., 612x792).",
+)
+@click.option(
+    "--orientation",
+    "-o",
+    "orientation",
+    type=click.Choice(["auto", "portrait", "landscape"]),
+    default="auto",
+    help="Page orientation: auto (detect from source), portrait, or landscape. Default: auto.",
+)
+def main(
+    directory: Path,
+    normalize_size: Optional[str],
+    orientation: str,
+) -> None:
+    """Merge all PDF files in DIRECTORY into a single PDF named after the directory."""  
+
     directory = directory.resolve()
     logger.info(f"Merging PDFs from: {directory}")
 
     output_file = directory.with_suffix(".pdf")
 
     try:
-        count = merge_pdfs(directory, output_file)
+        count = merge_pdfs(
+            directory, output_file, normalize_size, cast(Orientation, orientation)
+        )
         click.echo(f"Successfully merged {count} PDF(s) into {output_file}")
     except PdfMergeError as e:
         click.echo(f"Error: {e}", err=True)
@@ -31,4 +54,5 @@ def main(directory: Path) -> None:
 
 
 if __name__ == "__main__":
+
     main()

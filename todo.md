@@ -20,9 +20,13 @@ pdf_merge .
 - Add this installation way to README.md
 - Make it this default installation way in the document.
 
-## Mission 3: Page Size Normalized Merge
+## Mission 3: Page Size Normalized Merge - COMPLETED
 - I found that when pdfs page size are various, merged-pdf seems ugly. 
 - We need a feature to normalize page size to A4 or anything else.   
 - Multi page sized pdfs are located in `test/_backup` folder. 
 - Also trying merging for `test/_backup` makes strange messages. 
 - Trace why this happens and resolve it if needed. 
+
+## Mission 4: GitHub Installation - COMPLETED
+- Add installation from GitHub using `uv tool install git+https://...`
+- Update README with git+https installation instructions.

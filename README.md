@@ -29,6 +29,16 @@ uv tool install .
 
 This makes `pdf_merge` available globally in your PATH.
 
+### Install from GitHub (without cloning)
+
+```bash
+# Install directly from GitHub
+uv tool install git+https://github.com/3DAlgoLab/pdf-merger
+
+# Or with a specific version/tag
+uv tool install git+https://github.com/3DAlgoLab/pdf-merger@v0.1.0
+```
+
 ### Alternative: uv pip install
 
 ```bash
@@ -79,7 +89,7 @@ pdf_merge --help
 ## Uninstall
 
 ```bash
-# If installed with uv tool install (recommended)
+# If installed with uv tool install (local or GitHub)
 uv tool uninstall pdf-merger
 
 # If installed with uv pip install
