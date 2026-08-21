@@ -16,7 +16,7 @@ Simple PDF merger CLI tool written in Python 3.13 using the uv framework. Merges
 ### Running the Application
 
 ```bash
-uv run pdf_merge <directory>
+uv run pdf-merge <directory>
 ```
 
 ### Installing Dependencies
@@ -104,6 +104,7 @@ def merge_pdfs(input_dir: Path, output_file: Path) -> int:
 class PdfMergeError(Exception):
     pass
 
+
 def merge_pdfs(input_dir: Path, output_file: Path) -> None:
     if not input_dir.exists():
         raise FileNotFoundError(f"Directory not found: {input_dir}")
@@ -117,7 +118,9 @@ def merge_pdfs(input_dir: Path, output_file: Path) -> None:
 
 ```python
 import logging
+
 logger = logging.getLogger(__name__)
+
 
 def merge_pdfs(input_dir: Path, output_file: Path) -> None:
     logger.info(f"Merging PDFs from {input_dir}")

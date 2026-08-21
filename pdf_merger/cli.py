@@ -5,7 +5,7 @@ from typing import Optional, cast
 
 import click
 
-from pdf_merger import PdfMergeError, Orientation, merge_pdfs
+from pdf_merger import Orientation, PdfMergeError, merge_pdfs
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +17,8 @@ logger = logging.getLogger(__name__)
     "-s",
     "normalize_size",
     default=None,
-    help="Normalize page size to specified size. Options: A4, A3, LETTER, LEGAL, or WxH (e.g., 612x792).",
+    help="Normalize page size to specified size. "
+    "Options: A4, A3, LETTER, LEGAL, or WxH (e.g., 612x792).",
 )
 @click.option(
     "--orientation",
@@ -25,14 +26,15 @@ logger = logging.getLogger(__name__)
     "orientation",
     type=click.Choice(["auto", "portrait", "landscape"]),
     default="auto",
-    help="Page orientation: auto (detect from source), portrait, or landscape. Default: auto.",
+    help="Page orientation: auto (detect from source), "
+    "portrait, or landscape. Default: auto.",
 )
 def main(
     directory: Path,
     normalize_size: Optional[str],
     orientation: str,
 ) -> None:
-    """Merge all PDF files in DIRECTORY into a single PDF named after the directory."""  
+    """Merge all PDF files in DIRECTORY into a single PDF named after the directory."""
 
     directory = directory.resolve()
     logger.info(f"Merging PDFs from: {directory}")
@@ -54,5 +56,4 @@ def main(
 
 
 if __name__ == "__main__":
-
     main()

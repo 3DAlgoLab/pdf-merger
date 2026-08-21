@@ -23,11 +23,11 @@ irm https://astral.sh/uv/install.ps1 | iex
 # Install directly from GitHub
 uv tool install git+https://github.com/3DAlgoLab/pdf-merger
 
-# Or with a specific version/tag
-uv tool install git+https://github.com/3DAlgoLab/pdf-merger@v0.1.0
+# Or pin to a branch or tag (push a tag first: git tag v0.2.0 && git push origin v0.2.0)
+uv tool install git+https://github.com/3DAlgoLab/pdf-merger@master
 ```
 
-This makes `pdf_merge` available globally in your PATH.
+This makes `pdf-merge` available globally in your PATH.
 
 ### Alternative: Clone and install
 
@@ -60,7 +60,7 @@ uv pip install -e .
 cd /path/to/your/pdfs
 
 # Run the merger
-pdf_merge .
+pdf-merge .
 ```
 
 This will create a merged PDF named after the current directory.
@@ -68,23 +68,25 @@ This will create a merged PDF named after the current directory.
 ### Examples
 
 **Linux/macOS:**
+
 ```bash
 cd ~/Documents/my_pdfs
-pdf_merge .
+pdf-merge .
 # Creates: ~/Documents/my_pdfs.pdf
 ```
 
 **Windows:**
+
 ```powershell
 cd C:\Users\You\Documents\my_pdfs
-pdf_merge .
+pdf-merge .
 # Creates: C:\Users\You\Documents\my_pdfs.pdf
 ```
 
 ### Options
 
 ```bash
-pdf_merge --help
+pdf-merge --help
 ```
 
 ### Page Size Normalization
@@ -93,17 +95,18 @@ You can normalize all pages to a standard size:
 
 ```bash
 # Normalize all pages to A4 (auto-detect orientation from source)
-pdf_merge . --size A4
+pdf-merge . --size A4
 
 # Force all pages to portrait or landscape
-pdf_merge . --size A4 --orientation portrait
-pdf_merge . --size A4 --orientation landscape
+pdf-merge . --size A4 --orientation portrait
+pdf-merge . --size A4 --orientation landscape
 
 # Available sizes: A4, A3, LETTER, LEGAL, or WxH (e.g., 612x792)
-pdf_merge . --size 800x1200 --orientation auto
+pdf-merge . --size 800x1200 --orientation auto
 ```
 
 **Orientation options:**
+
 - `auto` (default): detects portrait/landscape from source page dimensions
 - `portrait`: forces all pages to portrait
 - `landscape`: forces all pages to landscape

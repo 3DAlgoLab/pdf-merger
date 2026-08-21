@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Literal, Optional, Tuple, Union
+from typing import Literal, Optional, Tuple
 
 from pypdf import PdfReader, PdfWriter
 
