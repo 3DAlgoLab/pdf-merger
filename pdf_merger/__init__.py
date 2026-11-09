@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Literal, Optional, Tuple
 
-from pypdf import PdfReader, PdfWriter
+from pypdf import PdfWriter
 
 
 class PdfMergeError(Exception):
@@ -32,23 +32,37 @@ def _parse_size(
 
     Args:
         size_str: Size name (A4, A3, LETTER, LEGAL) or WxH format.
-        orientation: auto, portrait, or landscape. Only used for size names.
+        orientation: auto, portrait, or landscape. portrait and landscape
+            force the returned dimensions to that orientation.
+
+    Raises:
+        ValueError: If size_str is not a known size or a valid WxH value.
     """
-    size_str = size_str.upper().strip()
-    if "x" in size_str:
-        parts = size_str.split("x")
-        if len(parts) == 2:
-            return (float(parts[0]), float(parts[1]))
-    if size_str in PAGE_SIZES:
-        return PAGE_SIZES[size_str]
-    if size_str in ("A4", "A3", "LETTER", "LEGAL"):
-        base = PAGE_SIZES[size_str]
-        if orientation == "landscape":
-            return (base[1], base[0])
-        return base
-    raise ValueError(
-        f"Invalid size: {size_str}. Use A4, A3, LETTER, LEGAL, or WxH format."
-    )
+    normalized = size_str.upper().strip()
+    if "X" in normalized:
+        parts = normalized.split("X")
+        if len(parts) != 2:
+            raise ValueError(
+                f"Invalid size: {size_str}. Use A4, A3, LETTER, LEGAL, or WxH format."
+            )
+        try:
+            width, height = float(parts[0]), float(parts[1])
+        except ValueError:
+            raise ValueError(
+                f"Invalid size: {size_str}. Use A4, A3, LETTER, LEGAL, or WxH format."
+            ) from None
+    elif normalized in PAGE_SIZES:
+        width, height = PAGE_SIZES[normalized]
+    else:
+        raise ValueError(
+            f"Invalid size: {size_str}. Use A4, A3, LETTER, LEGAL, or WxH format."
+        )
+
+    if orientation == "portrait" and width > height:
+        return (height, width)
+    if orientation == "landscape" and width < height:
+        return (height, width)
+    return (width, height)
 
 
 def merge_pdfs(
@@ -94,8 +108,9 @@ def merge_pdfs(
         merger = PdfWriter()
         for pdf_file in pdf_files:
             if target_size:
-                reader = PdfReader(pdf_file)
-                for page in reader.pages:
+                first_new_page = len(merger.pages)
+                merger.append(pdf_file)
+                for page in merger.pages[first_new_page:]:
                     current_width = float(page.mediabox.width)
                     current_height = float(page.mediabox.height)
 
@@ -113,8 +128,6 @@ def merge_pdfs(
                     scale_x = target_width / current_width
                     scale_y = target_height / current_height
                     page.scale(scale_x, scale_y)
-
-                    merger.add_page(page)
             else:
                 merger.append(pdf_file)
 

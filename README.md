@@ -23,7 +23,7 @@ irm https://astral.sh/uv/install.ps1 | iex
 # Install directly from GitHub
 uv tool install git+https://github.com/3DAlgoLab/pdf-merger
 
-# Or pin to a branch or tag (push a tag first: git tag v0.2.0 && git push origin v0.2.0)
+# Or pin to a branch or tag (push a tag first: git tag v0.2.1 && git push origin v0.2.1)
 uv tool install git+https://github.com/3DAlgoLab/pdf-merger@master
 ```
 
